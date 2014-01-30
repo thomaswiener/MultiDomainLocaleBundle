@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Simple locale bundle for symfony2",
     "keywords": ["locale"],
-    "homepage": "www.whatever.com",
+    "homepage": "http://prototyp.in",
     "license": "Apache",
     "authors": [
         {
