@@ -1,5 +1,5 @@
 {
-    "name": "twi/local-bundle",
+    "name": "twi/locale-bundle",
     "type": "symfony-bundle",
     "description": "Simple locale bundle for symfony2",
     "keywords": ["locale"],
