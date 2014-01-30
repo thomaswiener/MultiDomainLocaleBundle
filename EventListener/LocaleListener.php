@@ -1,7 +1,7 @@
 <?php
 namespace TWI\LocaleBundle\EventListener;
 
-use parku\LocaleBundle\Service\LocaleManager;
+use TWI\LocaleBundle\Service\LocaleManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,7 +77,6 @@ class LocaleListener
             return;
         }
         //locale was not found
-
         $locale = $this->localeManager->getLocale($request, $allowedLocales);
         $request->setLocale($locale);
         $event->setResponse(

@@ -19,7 +19,7 @@ parameters:
 
         #add more countries here
 
-        # default this is only for dev environments without a valid top level domain
+        # default, is only for dev environments without a valid top level domain
         default:
             name: Germany
             languages: [de_DE, en_GB]
@@ -45,33 +45,7 @@ parameters:
 
     # Whitelist of routes, where locale validation is activated
     include_paths:
-        - /booking
-        - /cancellation
-        - /contact
-        - /customersupport
-        - /faq
-        - /how-it-works
-        - /imprint
-        - /login
-        - /loginmodal
-        - /login_check
-        - /newsletter
-        - /offers
-        - /parking
-        - /parkingspace
-        - /parkplatz
-        - /parku-cares
-        - /parku-cares/
-        - /press-area
-        - /privacy-policy
-        - /register
-        - /register_submit
-        - /reset-password
-        - /search
-        - /sesam
-        - /support
-        - /terms
-        - /user
+        - /demo
 
 services:
     twi.locale.listener:
@@ -82,7 +56,7 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
 
     twi.locale.manager:
-        class: twi\LocaleBundle\Service\LocaleManager
+        class: TWI\LocaleBundle\Service\LocaleManager
         arguments:
             - @security.context
             - %localesByCountry%
@@ -90,7 +64,7 @@ services:
             - %regex_locale%
 
     twi.twig.locale:
-        class: twi\LocaleBundle\Service\TwigLocaleManager
+        class: TWI\LocaleBundle\Service\TwigLocaleManager
         arguments:
             - @service_container
             - @twi.locale.manager

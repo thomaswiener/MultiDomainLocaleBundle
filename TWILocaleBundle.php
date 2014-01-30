@@ -1,9 +1,9 @@
 <?php
 
-namespace parku\LocaleBundle;
+namespace TWI\LocaleBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class parkuLocaleBundle extends Bundle
+class TWILocaleBundle extends Bundle
 {
 }
