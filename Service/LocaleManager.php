@@ -1,18 +1,29 @@
 <?php
-/**
- * User: twiener
- * Date: 23/01/14
+
+/*
+ * Copyright 2014 Thomas Wiener <wiener.thomas@googlemail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 namespace TWI\LocaleBundle\Service;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class LocaleManager
 {
-    const COOKIE_LOCALE_NAME = 'pl';
-
     /**
      * Permanente HTTP redirect code
      */
@@ -22,6 +33,11 @@ class LocaleManager
      * Temporary HTTP redirect code
      */
     const HTTP_REDIRECT_TEMP = 307;
+
+    /**
+     * Cookie Label for user locale
+     */
+    protected $cookieLocaleName;
 
     /**
      * @var
@@ -46,17 +62,24 @@ class LocaleManager
     /**
      * Setting arrays for locale validation purposes
      *
-     * @param $securityContext
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
      * @param array $localesByCountry Locale specific info by domain
      * @param array $includePaths Path info fragments to be validatated for locale
      * @param $regExLocale Regular Expression to find locale in uri
+     * @param $cookieLocaleName
      */
-    public function __construct(SecurityContext $securityContext, array $localesByCountry, array $includePaths, $regExLocale)
+    public function __construct(
+        SecurityContextInterface $securityContext,
+        array $localesByCountry,
+        array $includePaths,
+        $regExLocale,
+        $cookieLocaleName)
     {
         $this->securityContext = $securityContext;
         $this->localesByCountry = $localesByCountry;
         $this->includePaths = $includePaths;
         $this->regExLocale = $regExLocale;
+        $this->cookieLocaleName = $cookieLocaleName;
     }
 
     /**
@@ -92,14 +115,14 @@ class LocaleManager
         }
 
         //next try to use browser default
-        $browserDefault = $this->getBrowserDefault($request, $allowedLocales['languages']);
+        $browserDefault = $this->getBrowserDefault($request, $allowedLocales['locales']);
 
         if ($browserDefault !== false) {
             return $browserDefault;
         }
 
         //finally use default language of domain
-        return $allowedLocales['default_language'];
+        return $allowedLocales['default_locale'];
     }
 
     /**
@@ -112,11 +135,11 @@ class LocaleManager
     {
         $cookies = $request->cookies;
 
-        if (!$cookies->has(self::COOKIE_LOCALE_NAME)) {
+        if (!$cookies->has($this->cookieLocaleName)) {
             return false;
         }
 
-        $locale = $cookies->get(self::COOKIE_LOCALE_NAME);
+        $locale = $cookies->get($this->cookieLocaleName);
         $result = $this->getLocalePathInfo('/'.$locale.'/');
 
         if (!isset($result['locale'])) {
@@ -206,8 +229,9 @@ class LocaleManager
      */
     public function getAllowedLocales($tld)
     {
-        $locales = (isset($this->localesByCountry[strtoupper($tld)])) ?
-            $this->localesByCountry[strtoupper($tld)] : array();
+        $tld = strtolower($tld);
+        $locales = (isset($this->localesByCountry[$tld])) ?
+            $this->localesByCountry[$tld] : array();
 
         if ($locales == array()) {
             return $this->localesByCountry['default'];
