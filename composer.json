@@ -21,7 +21,7 @@
     "target-dir": "TWI/LocaleBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.4-dev"
+            "dev-master": "0.1-dev"
         }
     }
 }
