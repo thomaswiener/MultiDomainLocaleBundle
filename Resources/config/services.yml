@@ -1,0 +1,97 @@
+parameters:
+
+    # all allowed locales, new locales MUST be defined here!!!
+    locales_allowed: de_DE|en_GB|de_CH|fr_FR
+    default_language: de_CH
+
+    # specify which locale is allowed in which country by top level domain
+    localesByCountry:
+        # Switzerland
+        CH:
+            name: Switzerland
+            languages: [de_CH, fr_FR, en_GB]
+            default_language: de_CH
+        # Germany
+        DE:
+            name: Germany
+            languages: [de_DE, en_GB]
+            default_language: de_DE
+
+        #add more countries here
+
+        # default this is only for dev environments without a valid top level domain
+        default:
+            name: Germany
+            languages: [de_DE, en_GB]
+            default_language: de_DE
+
+    # Config data for locales, important for language dropdown menu
+    locales_config:
+        de_DE:
+            image: de.gif
+            label: Deutsch
+        de_CH:
+            image: de_ch.gif
+            label: Deutsch (Schweiz)
+        fr_FR:
+            image: fr.gif
+            label: Français
+        en_GB:
+            image: en.gif
+            label: English
+
+    # Regular Expression to find a locale pattern like 'de_DE' within a string (url)
+    regex_locale: |\/(?P<locale>[a-z]{2}_[A-Z]{2})\/|
+
+    # Whitelist of routes, where locale validation is activated
+    include_paths:
+        - /booking
+        - /cancellation
+        - /contact
+        - /customersupport
+        - /faq
+        - /how-it-works
+        - /imprint
+        - /login
+        - /loginmodal
+        - /login_check
+        - /newsletter
+        - /offers
+        - /parking
+        - /parkingspace
+        - /parkplatz
+        - /parku-cares
+        - /parku-cares/
+        - /press-area
+        - /privacy-policy
+        - /register
+        - /register_submit
+        - /reset-password
+        - /search
+        - /sesam
+        - /support
+        - /terms
+        - /user
+
+services:
+    twi.locale.listener:
+        class: TWI\LocaleBundle\EventListener\LocaleListener
+        arguments:
+            - @twi.locale.manager
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
+
+    twi.locale.manager:
+        class: twi\LocaleBundle\Service\LocaleManager
+        arguments:
+            - @security.context
+            - %localesByCountry%
+            - %include_paths%
+            - %regex_locale%
+
+    twi.twig.locale:
+        class: twi\LocaleBundle\Service\TwigLocaleManager
+        arguments:
+            - @service_container
+            - @twi.locale.manager
+            - %locales_config%

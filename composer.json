@@ -1,0 +1,27 @@
+{
+    "name": "twi/local-bundle",
+    "type": "symfony-bundle",
+    "description": "Simple locale bundle for symfony2",
+    "keywords": ["locale"],
+    "homepage": "www.whatever.com",
+    "license": "Apache",
+    "authors": [
+        {
+            "name": "Thomas Wiener",
+            "email": "wiener.thomas@googlemail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/framework-bundle": "~2.3"
+    },
+    "autoload": {
+        "psr-0": { "TWI\\LocaleBundle": "" }
+    },
+    "target-dir": "TWI/LocaleBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.4-dev"
+        }
+    }
+}
