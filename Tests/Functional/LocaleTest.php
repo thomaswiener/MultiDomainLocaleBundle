@@ -16,17 +16,41 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle\Tests\Controller;
+namespace TWI\LocaleBundle\Tests\Functional;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Locale\Locale;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use TWI\LocaleBundle\Service\LocaleManager;
 
 class DefaultControllerTest extends WebTestCase
 {
+    static protected function createKernel(array $options = array())
+    {
+        return new AppKernel(
+            isset($options['config']) ? $options['config'] : 'default.yml'
+        );
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        #$fs = new Filesystem();
+        #$fs->remove(sys_get_temp_dir().'/JMSI18nRoutingBundle');
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+// $fs = new Filesystem();
+// $fs->remove(sys_get_temp_dir().'/JMSI18nRoutingBundle');
+    }
+
     public function testMissingLocaleInHome()
     {
         $client = static::createClient();
@@ -71,7 +95,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals($client->getResponse()->getStatusCode(), LocaleManager::HTTP_REDIRECT_TEMP);
 
         $crawler = $client->followRedirect();
-        $this->assertTrue($crawler->filter('html:contains("Jetzt Anmelden")')->count() == 1);
+        $this->assertTrue($crawler->filter('html:contains("http://www.domain.de/de_DE/login")')->count() == 1);
     }
 
     public function testUnallowedLocaleInHome()
@@ -106,7 +130,7 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', 'http://www.domain.de/en_GB/login');
 
-        $this->assertTrue($crawler->filter('html:contains("Log in")')->count() == 1);
+        $this->assertTrue($crawler->filter('html:contains("http://www.domain.de/en_GB/login")')->count() == 1);
     }
 
     public function testDefaultLocaleCHRedirect()
@@ -124,18 +148,18 @@ class DefaultControllerTest extends WebTestCase
         $apiKey = $client->getContainer()->getParameter('api_key');
         $crawler = $client->request('GET', 'http://www.domain.ch/v3/version?api_key=' . $apiKey);
 
-        $result = @json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(true, isset($result['version']));
-        $this->assertEquals(3, $result['version']);
-        $this->assertEquals(true, isset($result['revision']));
+        $this->assertTrue($crawler->filter('html:contains("http://www.domain.ch/v3/version")')->count() == 1);
     }
 
     public function testNotIncludedPathWithLocale()
     {
         $client = static::createClient();
         $apiKey = $client->getContainer()->getParameter('api_key');
-        $crawler = $client->request('GET', 'http://www.domain.ch/de_DE/v3/version?api_key=' . $apiKey);
+
+        try {
+            $crawler = $client->request('GET', 'http://www.domain.ch/de_DE/v3/version?api_key=' . $apiKey);
+        } catch (NotFoundHttpException $ex) {
+        }
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -145,7 +169,7 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', 'http://www.domain.jp/login');
 
-        $this->assertTrue($crawler->filter('html:contains("Redirecting to /jp_JP/")')->count() == 1);
+        $this->assertTrue($crawler->filter('html:contains("Redirecting to /jp_JP/login")')->count() == 1);
         $this->assertEquals($client->getResponse()->getStatusCode(), LocaleManager::HTTP_REDIRECT_TEMP);
     }
 
@@ -161,7 +185,7 @@ class DefaultControllerTest extends WebTestCase
     public function testValidLocaleCookie()
     {
         $client = static::createClient();
-        $cookie = new Cookie('pl', 'fr_CH', time() + 3600 * 24 * 7, '/', null, false, false);
+        $cookie = new Cookie('tl', 'fr_CH', time() + 3600 * 24 * 7, '/', null, false, false);
         $client->getCookieJar()->set($cookie);
         $crawler = $client->request('GET', 'http://www.domain.ch/login');
 
@@ -179,7 +203,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Redirecting to /de_CH/login")')->count() == 1);
         $this->assertEquals($client->getResponse()->getStatusCode(), LocaleManager::HTTP_REDIRECT_TEMP);
     }
-
+/*
     public function testLocaleChangeOnLoginValidLanguage()
     {
         $client = static::createClient();
@@ -223,6 +247,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("domain | Parkplatz buchen statt suchen")')->count() == 1);
         $this->assertEquals($client->getResponse()->getStatusCode(), 200);
     }
+*/
 /*
     public function testLocaleChangeOnProfileLocaleUpdate()
     {

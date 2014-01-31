@@ -40,11 +40,6 @@ class LocaleManager
     protected $cookieLocaleName;
 
     /**
-     * @var
-     */
-    protected $securityContext;
-
-    /**
      * Regular expression to find locale eg. de_DE in request url
      */
     protected  $regExLocale;
@@ -62,20 +57,17 @@ class LocaleManager
     /**
      * Setting arrays for locale validation purposes
      *
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
      * @param array $localesByCountry Locale specific info by domain
      * @param array $includePaths Path info fragments to be validatated for locale
      * @param $regExLocale Regular Expression to find locale in uri
      * @param $cookieLocaleName
      */
     public function __construct(
-        SecurityContextInterface $securityContext,
         array $localesByCountry,
         array $includePaths,
         $regExLocale,
         $cookieLocaleName)
     {
-        $this->securityContext = $securityContext;
         $this->localesByCountry = $localesByCountry;
         $this->includePaths = $includePaths;
         $this->regExLocale = $regExLocale;
@@ -253,7 +245,7 @@ class LocaleManager
         //remove locale if exists from path info
         $result = $this->getLocalePathInfo($pathInfo);
         if (isset($result['locale'])) {
-            $locale = $locale = $result['locale'];
+            $locale = $result['locale'];
             $pathInfo = $this->removeInvalidLocale($pathInfo, $locale);
         }
 

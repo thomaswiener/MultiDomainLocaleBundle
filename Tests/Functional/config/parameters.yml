@@ -1,0 +1,36 @@
+parameters:
+
+    api_key: 12345
+
+    include_paths:
+        - /login
+
+    localesByCountry:
+            # Switzerland
+            ch:
+                name: Switzerland
+                locales: [de_CH, fr_FR, en_GB]
+                default_locale: de_CH
+            # Germany
+            de:
+                name: Germany
+                locales: [de_DE, en_GB]
+                default_locale: de_DE
+            # Japan
+            jp:
+                name: Japan
+                locales: [jp_JP]
+                default_locale: jp_JP
+            # USA
+            us:
+                name: USA
+                locales: [en_US]
+                default_locale: en_US
+
+            #add more countries here
+
+            # default, is only for dev environments without a valid top level domain
+            default:
+                name: Germany
+                locales: [de_DE, en_GB]
+                default_locale: de_DE

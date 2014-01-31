@@ -61,7 +61,6 @@ services:
     twi.locale.manager:
         class: TWI\LocaleBundle\Service\LocaleManager
         arguments:
-            - @security.context
             - %localesByCountry%
             - %include_paths%
             - %regex_locale%
