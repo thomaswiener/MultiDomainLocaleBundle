@@ -161,7 +161,7 @@ class DefaultControllerTest extends WebTestCase
         } catch (NotFoundHttpException $ex) {
         }
 
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     public function testLocaleNotInBrowserDefaultList()

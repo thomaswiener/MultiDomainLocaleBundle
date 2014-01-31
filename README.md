@@ -1,4 +1,4 @@
-TWILocaleBundle
+TWILocaleBundle [![Build Status](https://travis-ci.org/thomaswiener/TWILocaleBundle.png?branch=master)](https://travis-ci.org/thomaswiener/TWILocaleBundle)
 ===================
 
 ```
