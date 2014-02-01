@@ -1,4 +1,4 @@
-MultiDomainLocaleBundle [![Build Status](https://travis-ci.org/thomaswiener/TWILocaleBundle.png?branch=master)](https://travis-ci.org/thomaswiener/TWILocaleBundle)
+MultiDomainLocaleBundle [![Build Status](https://travis-ci.org/thomaswiener/MultiDomainLocaleBundle.png?branch=master)](https://travis-ci.org/thomaswiener/MultiDomainLocaleBundle)
 ===================
 
 ## General
@@ -52,9 +52,61 @@ Installation is done. But you will need to configure a few thing before it reall
 
 ## Configuration
 
-Define available locales
-Define Domains and allowed countries
-Whitelist routes
+Up front the whole configuration, explantion inline:
+
+```
+    # all allowed locales, new locales MUST be defined here!!!
+    locales_allowed: de_DE|en_GB|de_CH|fr_FR     # mandatory
+    default_language: de_CH
+
+    # specify which locale is allowed in which country by top level domain
+    localesByCountry:                            # mandatory
+        # Switzerland
+        ch:
+            name: Switzerland
+            locales: [de_CH, fr_FR, en_GB]
+            default_locale: de_CH
+        # Germany
+        de:
+            name: Germany
+            locales: [de_DE, en_GB]
+            default_locale: de_DE
+
+        #add more countries here
+
+        # default, is only for dev environments without a valid top level domain
+        default:                                  # mandatory
+            name: Germany
+            locales: [de_DE, en_GB]
+            default_locale: de_DE
+
+    # Config data for locales, important for language dropdown menu
+    locales_config:                               # mandatory
+        de_DE:
+            image: de.gif
+            label: Deutsch
+        de_CH:
+            image: de_ch.gif
+            label: Deutsch (Schweiz)
+        fr_FR:
+            image: fr.gif
+            label: Français
+        en_GB:
+            image: en.gif
+            label: English
+
+    # Whitelist of routes, where locale validation is activated
+    include_paths:                                  # mandatory
+        - /demo
+
+    # Regular Expression to find a locale pattern like 'de_DE' within a string (url)
+    regex_locale: |\/(?P<locale>[a-z]{2}_[A-Z]{2})\/|   # optional
+
+    # Cookie name for user locale
+    cookie_name:  tl                                    # optional
+```
+
+In routing, add /{_locale} in front of all necessary routes.
 
 ```
 login_check:
