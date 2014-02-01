@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle\Service;
+namespace TWI\MultiDomainLocaleBundle\Service;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;

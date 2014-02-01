@@ -52,14 +52,14 @@ parameters:
 
 services:
     twi.locale.listener:
-        class: TWI\LocaleBundle\EventListener\LocaleListener
+        class: TWI\MultiDomainLocaleBundle\EventListener\LocaleListener
         arguments:
             - @twi.locale.manager
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
 
     twi.locale.manager:
-        class: TWI\LocaleBundle\Service\LocaleManager
+        class: TWI\MultiDomainLocaleBundle\Service\LocaleManager
         arguments:
             - %localesByCountry%
             - %include_paths%
@@ -67,7 +67,7 @@ services:
             - %cookie_name%
 
     twi.twig.locale:
-        class: TWI\LocaleBundle\Service\TwigLocaleManager
+        class: TWI\MultiDomainLocaleBundle\Service\TwigLocaleManager
         arguments:
             - @service_container
             - @twi.locale.manager

@@ -24,7 +24,7 @@ The installation of MultiDomainLocaleBundle is pretty straight forward. Just add
     // ...
     require: {
         // ...
-        "twi/locale-bundle": "1.0.*@dev"
+        "twi/multi-domain-locale-bundle": "1.0.*@dev"
     }
 }
 ```
@@ -43,7 +43,7 @@ Add the bundle to your AppKernel:
 // in AppKernel::registerBundles()
 $bundles = array(
     // ...
-    new TWI\LocaleBundle\TWILocaleBundle(),
+    new TWI\MultiDomainLocaleBundle\TWIMultiDomainLocaleBundle(),
     // ...
 );
 ```
@@ -56,17 +56,15 @@ Up front the whole configuration, explantion inline:
 
 ```
     # all allowed locales, new locales MUST be defined here!!!
-    locales_allowed: de_DE|en_GB|de_CH|fr_FR     # mandatory
+    locales_allowed: de_DE|en_GB|de_CH|fr_FR     # mandatory, list all supported locales for your site
     default_language: de_CH
 
     # specify which locale is allowed in which country by top level domain
     localesByCountry:                            # mandatory
-        # Switzerland
-        ch:
-            name: Switzerland
-            locales: [de_CH, fr_FR, en_GB]
-            default_locale: de_CH
-        # Germany
+        ch:                                      # top level domain
+            name: Switzerland                    # Name of Country
+            locales: [de_CH, fr_FR, en_GB]       # Allowed locales for this domain
+            default_locale: de_CH                # Fallback locale if none or unknown locale is given
         de:
             name: Germany
             locales: [de_DE, en_GB]

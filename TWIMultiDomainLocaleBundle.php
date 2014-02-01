@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle;
+namespace TWI\MultiDomainLocaleBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class TWILocaleBundle extends Bundle
+class TWIMultiDomainLocaleBundle extends Bundle
 {
 }

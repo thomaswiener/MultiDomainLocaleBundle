@@ -1,5 +1,5 @@
 {
-    "name": "twi/locale-bundle",
+    "name": "twi/multi-domain-locale-bundle",
     "type": "symfony-bundle",
     "description": "Simple locale bundle for symfony2",
     "keywords": ["locale"],
@@ -32,9 +32,9 @@
         "sensio/framework-extra-bundle": "<2.1.5"
     },
     "autoload": {
-        "psr-0": { "TWI\\LocaleBundle": "" }
+        "psr-0": { "TWI\\MultiDomainLocaleBundle": "" }
     },
-    "target-dir": "TWI/LocaleBundle",
+    "target-dir": "TWI/MultiDomainLocaleBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"

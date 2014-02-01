@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle\EventListener;
+namespace TWI\MultiDomainLocaleBundle\EventListener;
 
-use TWI\LocaleBundle\Service\LocaleManager;
+use TWI\MultiDomainLocaleBundle\Service\LocaleManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * defined in security.yml of this bundle)
  *
  * Class LocaleChoosingListener
- * @package TWI\LocaleBundle\EventListener
+ * @package TWI\MultiDomainLocaleBundle\EventListener
  */
 class LocaleListener
 {

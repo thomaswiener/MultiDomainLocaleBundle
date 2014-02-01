@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle\Tests\Functional;
+namespace TWI\MultiDomainLocaleBundle\Tests\Functional;
 
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +24,7 @@ use Symfony\Component\Locale\Locale;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-use TWI\LocaleBundle\Service\LocaleManager;
+use TWI\MultiDomainLocaleBundle\Service\LocaleManager;
 
 class DefaultControllerTest extends WebTestCase
 {

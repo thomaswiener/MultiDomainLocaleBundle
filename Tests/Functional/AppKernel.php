@@ -1,6 +1,6 @@
 <?php
 
-namespace TWI\LocaleBundle\Tests\Functional;
+namespace TWI\MultiDomainLocaleBundle\Tests\Functional;
 
 require_once __DIR__.'/../bootstrap.php';
 
@@ -34,8 +34,8 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new \TWI\LocaleBundle\Tests\Functional\TestBundle\TestBundle(),
-            new \TWI\LocaleBundle\TWILocaleBundle(),
+            new \TWI\MultiDomainLocaleBundle\Tests\Functional\TestBundle\TestBundle(),
+            new \TWI\MultiDomainLocaleBundle\TWIMultiDomainLocaleBundle(),
         );
     }
 

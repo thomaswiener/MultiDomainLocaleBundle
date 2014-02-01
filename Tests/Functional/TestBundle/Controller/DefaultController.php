@@ -1,6 +1,6 @@
 <?php
 
-namespace TWI\LocaleBundle\Tests\Functional\TestBundle\Controller;
+namespace TWI\MultiDomainLocaleBundle\Tests\Functional\TestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TWI\LocaleBundle\Tests\Functional\TestBundle;
+namespace TWI\MultiDomainLocaleBundle\Tests\Functional\TestBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

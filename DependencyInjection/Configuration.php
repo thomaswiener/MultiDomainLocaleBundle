@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace TWI\LocaleBundle\DependencyInjection;
+namespace TWI\MultiDomainLocaleBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
