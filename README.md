@@ -5,7 +5,7 @@ MultiDomainLocaleBundle [![Build Status](https://travis-ci.org/thomaswiener/Mult
 
 Why another locale bundle? Good question.
 
-We used different approaches (jms i18n bundle, lunatics ...) to finally get our locale configuration up and running, but at the end we always had issues
+We used different approaches (jms i18n bundle, lunatics ...) to finally got our locale configuration up and running, but at the end we always had issues
 with requirements that were not included.
 
 This bundle is for you if....
@@ -57,7 +57,6 @@ Up front the whole configuration, explantion inline:
 ```
     # all allowed locales, new locales MUST be defined here!!!
     locales_allowed: de_DE|en_GB|de_CH|fr_FR     # mandatory, list all supported locales for your site
-    default_language: de_CH
 
     # specify which locale is allowed in which country by top level domain
     localesByCountry:                            # mandatory

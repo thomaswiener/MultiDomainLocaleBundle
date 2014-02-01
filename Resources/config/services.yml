@@ -2,7 +2,6 @@ parameters:
 
     # all allowed locales, new locales MUST be defined here!!!
     locales_allowed: de_DE|en_GB|de_CH|fr_FR
-    default_language: de_CH
 
     # specify which locale is allowed in which country by top level domain
     localesByCountry:
