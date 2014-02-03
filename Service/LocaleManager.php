@@ -59,18 +59,23 @@ class LocaleManager
      *
      * @param array $localesByCountry Locale specific info by domain
      * @param array $includePaths Path info fragments to be validatated for locale
-     * @param $regExLocale Regular Expression to find locale in uri
+     * @param $localeType
+     * @param $regExLocaleLong
+     * @param $regExLocaleShort
      * @param $cookieLocaleName
+     * @internal param \TWI\MultiDomainLocaleBundle\Service\Regular $regExLocale Expression to find locale in uri
      */
     public function __construct(
         array $localesByCountry,
         array $includePaths,
-        $regExLocale,
+        $localeType,
+        $regExLocaleLong,
+        $regExLocaleShort,
         $cookieLocaleName)
     {
         $this->localesByCountry = $localesByCountry;
         $this->includePaths = $includePaths;
-        $this->regExLocale = $regExLocale;
+        $this->regExLocale = ($localeType == 'long') ? $regExLocaleLong : $regExLocaleShort;
         $this->cookieLocaleName = $cookieLocaleName;
     }
 

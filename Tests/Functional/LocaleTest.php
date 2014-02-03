@@ -145,8 +145,7 @@ class DefaultControllerTest extends WebTestCase
     public function testNotIncludedPath()
     {
         $client = static::createClient();
-        $apiKey = $client->getContainer()->getParameter('api_key');
-        $crawler = $client->request('GET', 'http://www.domain.ch/v3/version?api_key=' . $apiKey);
+        $crawler = $client->request('GET', 'http://www.domain.ch/v3/version');
 
         $this->assertTrue($crawler->filter('html:contains("http://www.domain.ch/v3/version")')->count() == 1);
     }
@@ -154,10 +153,9 @@ class DefaultControllerTest extends WebTestCase
     public function testNotIncludedPathWithLocale()
     {
         $client = static::createClient();
-        $apiKey = $client->getContainer()->getParameter('api_key');
 
         try {
-            $crawler = $client->request('GET', 'http://www.domain.ch/de_DE/v3/version?api_key=' . $apiKey);
+            $crawler = $client->request('GET', 'http://www.domain.ch/de_DE/v3/version');
         } catch (NotFoundHttpException $ex) {
         }
 

@@ -1,7 +1,5 @@
 parameters:
 
-    api_key: 12345
-
     include_paths:
         - /login
 
@@ -34,3 +32,20 @@ parameters:
                 name: Germany
                 locales: [de_DE, en_GB]
                 default_locale: de_DE
+
+    # Config data for locales, important for language dropdown menu
+    locales_config:
+        de_DE:
+            image: de.gif
+            label: Deutsch
+        de_CH:
+            image: de_ch.gif
+            label: Deutsch (Schweiz)
+        fr_FR:
+            image: fr.gif
+            label: Français
+        en_GB:
+            image: en.gif
+            label: English
+
+    locale_type: long
